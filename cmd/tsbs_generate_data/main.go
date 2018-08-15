@@ -34,6 +34,7 @@ const (
 	// Output data format choices (alphabetical order)
 	formatCassandra   = "cassandra"
 	formatInflux      = "influx"
+	formatJSON        = "json"
 	formatMongo       = "mongo"
 	formatTimescaleDB = "timescaledb"
 
@@ -45,7 +46,7 @@ const (
 
 // semi-constants
 var (
-	formatChoices = []string{formatCassandra, formatInflux, formatMongo, formatTimescaleDB}
+	formatChoices = []string{formatCassandra, formatInflux, formatJSON, formatMongo, formatTimescaleDB}
 	// allows for testing
 	fatal = log.Fatalf
 )
@@ -219,6 +220,8 @@ func getSerializer(sim common.Simulator, format string, out *bufio.Writer) seria
 		return &serialize.CassandraSerializer{}
 	case formatInflux:
 		return &serialize.InfluxSerializer{}
+	case formatJSON:
+		return &serialize.JSONSerializer{}
 	case formatMongo:
 		return &serialize.MongoSerializer{}
 	case formatTimescaleDB:
